@@ -1,0 +1,504 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+html, body {
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.container {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+/* 头部样式 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    width: 100vw;
+    background-color: white;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 24px;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.current-time {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.primary-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #2980b9;
+}
+
+.secondary-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #c0392b;
+}
+
+.utility-btn {
+    background-color: #95a5a6;
+    color: white;
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+.utility-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* 输入区域样式 */
+.activity-input {
+    display: flex;
+    margin: 20px 0;
+    gap: 10px;
+    padding: 0 20px;
+    width: 100%;
+    background-color: white;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* 当前活动区域样式 */
+.current-activity {
+    background-color: white;
+    padding: 20px;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+}
+
+.no-activity {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+.activity-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.activity-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.activity-time {
+    display: flex;
+    justify-content: space-between;
+    color: #7f8c8d;
+}
+
+/* 时间轴区域样式 */
+.timeline {
+    background-color: white;
+    padding: 20px;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.activity-item {
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #3498db;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+.activity-item-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.activity-item-name {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.activity-item-duration {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.activity-item-time {
+    display: flex;
+    justify-content: space-between;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.no-records {
+    color: #7f8c8d;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* 连续活动样式 */
+.continued-activity {
+    position: relative;
+}
+
+.continued-activity::before {
+    content: "续";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4a89dc;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+/* 统计区域样式 */
+.statistics {
+    background-color: white;
+    padding: 20px;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    display: block;
+    overflow: visible;
+}
+
+/* 统计视图控制样式 */
+.stats-view-controls {
+    margin-bottom: 20px;
+}
+
+.stats-view-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.stats-view-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.stats-view-btn {
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.stats-view-btn:hover {
+    background-color: #e9e9e9;
+}
+
+.stats-view-btn.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+#activity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#activity-selector select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    min-width: 150px;
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.date-selector label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.no-stats {
+    color: #7f8c8d;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.stats-summary {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.stats-total {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.stats-summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.stats-summary-item-name {
+    display: flex;
+    align-items: center;
+}
+
+.color-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+/* 模态框样式 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.close-modal {
+    font-size: 24px;
+    cursor: pointer;
+    color: #7f8c8d;
+}
+
+.close-modal:hover {
+    color: #34495e;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.import-options {
+    margin: 20px 0;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.import-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.import-message.error {
+    background-color: #fde2e2;
+    color: #e74c3c;
+    border: 1px solid #f5b7b1;
+}
+
+.import-message.success {
+    background-color: #e8f8f5;
+    color: #27ae60;
+    border: 1px solid #a3e4d7;
+}
+
+/* 辅助类 */
+.hidden {
+    display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    .activity-input, .date-selector {
+        flex-direction: column;
+    }
+    
+    .activity-time {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .activity-item-header, .activity-item-time {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    .stats-view-options {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        max-width: 100%;
+    }
+    
+    .chart-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .container {
+        max-width: 100%;
+    }
+    
+    .statistics, .timeline, .current-activity {
+        width: 100%;
+    }
+    
+    .chart-container {
+        height: 500px;
+    }
+}

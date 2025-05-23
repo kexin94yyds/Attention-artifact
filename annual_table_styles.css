@@ -1,0 +1,137 @@
+/* 年度统计表样式 */
+.annual-table-controls {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.annual-table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 0;
+    max-height: none;
+    overflow-y: visible;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.annual-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+    display: table;
+}
+
+.annual-table th, .annual-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    min-width: 80px;
+}
+
+.annual-table th {
+    background-color: #f5f5f5;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.annual-table .day-header {
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    background-color: #f5f5f5;
+}
+
+.annual-table td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #f5f5f5;
+    font-weight: bold;
+    z-index: 5;
+}
+
+.annual-table th:first-child {
+    z-index: 30;
+}
+
+/* 活动单元格样式 */
+.activity-cell {
+    position: relative;
+    min-height: 30px;
+}
+
+.activity-cell.has-activity {
+    background-color: #f0f8ff;
+}
+
+.activity-content {
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.activity-note {
+    font-size: 11px;
+    color: #666;
+    margin-top: 3px;
+}
+
+.multi-activity-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 10px;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .annual-table {
+        font-size: 12px;
+    }
+    
+    .annual-table th, .annual-table td {
+        padding: 5px;
+        min-width: 60px;
+    }
+    
+    .annual-table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .annual-table-container {
+        max-height: none;
+    }
+}
+
+@media (min-width: 1201px) {
+    .annual-table-container {
+        max-height: none;
+    }
+    
+    .annual-table th, .annual-table td {
+        min-width: 100px;
+    }
+}

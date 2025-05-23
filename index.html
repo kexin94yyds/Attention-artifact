@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>时间追踪器</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="annual_table_styles.css">
+    <!-- 引入Chart.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: white;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        
+        section {
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>时间追踪器</h1>
+            <div class="header-controls">
+                <button id="export-btn" class="btn utility-btn">导出数据</button>
+                <button id="import-btn" class="btn utility-btn">导入数据</button>
+                <div id="current-time" class="current-time"></div>
+            </div>
+        </header>
+
+        <section class="activity-input">
+            <input type="text" id="activity-name" placeholder="输入活动名称（如：编程学习、跑步、练口语）">
+            <button id="start-btn" class="btn primary-btn">开始记录</button>
+        </section>
+
+        <section class="current-activity" id="current-activity-section">
+            <h2>当前活动</h2>
+            <div id="no-activity" class="no-activity">当前没有正在进行的活动</div>
+            <div id="activity-details" class="activity-details hidden">
+                <div class="activity-name" id="current-activity-name"></div>
+                <div class="activity-time">
+                    <div>开始时间: <span id="start-time"></span></div>
+                    <div>已持续: <span id="duration"></span></div>
+                </div>
+                <button id="end-btn" class="btn secondary-btn">结束活动</button>
+            </div>
+        </section>
+
+        <!-- 新增统计部分 -->
+        <section class="statistics">
+            <h2>时间统计</h2>
+            <div class="stats-view-controls">
+                <div class="stats-view-title">统计视图：</div>
+                <div class="stats-view-options">
+                    <button id="daily-distribution-btn" class="stats-view-btn active">当日活动分布</button>
+                    <button id="activity-daily-btn" class="stats-view-btn">活动每日统计</button>
+                    <button id="activity-total-btn" class="stats-view-btn">活动累计统计</button>
+                    <button id="annual-table-btn" class="stats-view-btn">年度统计表</button>
+                </div>
+                <div id="activity-selector" class="hidden">
+                    <label>选择活动：</label>
+                    <select id="activity-select"></select>
+                </div>
+                <div id="annual-table-controls" class="annual-table-controls hidden">
+                    <div class="control-group">
+                        <label for="annual-year-select">选择年份：</label>
+                        <select id="annual-year-select"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="annual-activity-select">选择活动：</label>
+                        <select id="annual-activity-select">
+                            <option value="all">所有活动</option>
+                            <!-- 动态填充活动选项 -->
+                        </select>
+                    </div>
+                    <button id="show-annual-table-btn" class="btn primary-btn">显示统计表</button>
+                </div>
+            </div>
+            <div class="date-selector">
+                <label for="stats-date">选择日期：</label>
+                <input type="date" id="stats-date">
+                <button id="show-stats-btn" class="btn primary-btn">显示统计</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="time-chart"></canvas>
+            </div>
+            <div id="annual-table-container" class="annual-table-container hidden">
+                <table id="annual-table" class="annual-table">
+                    <thead>
+                        <tr>
+                            <th class="day-header">日期</th>
+                            <th>1月</th>
+                            <th>2月</th>
+                            <th>3月</th>
+                            <th>4月</th>
+                            <th>5月</th>
+                            <th>6月</th>
+                            <th>7月</th>
+                            <th>8月</th>
+                            <th>9月</th>
+                            <th>10月</th>
+                            <th>11月</th>
+                            <th>12月</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 动态生成31行（1-31日） -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="no-stats" class="no-stats">所选日期没有活动记录</div>
+            <div id="stats-summary" class="stats-summary"></div>
+        </section>
+
+        <section class="timeline">
+            <h2>活动记录</h2>
+            <div id="activity-list" class="activity-list">
+                <div id="no-records" class="no-records">暂无活动记录</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 导入数据模态框 -->
+    <div id="import-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>导入数据</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>请选择要导入的数据文件（JSON格式）：</p>
+                <input type="file" id="import-file" accept=".json">
+                
+                <div class="import-options">
+                    <p>导入模式：</p>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="import-mode" value="replace" checked>
+                            替换当前数据
+                        </label>
+                        <label>
+                            <input type="radio" name="import-mode" value="merge">
+                            合并到当前数据
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="import-message" id="import-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-import" class="btn utility-btn">取消</button>
+                <button id="confirm-import" class="btn primary-btn">导入</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="export_import.js"></script>
+    <script src="combined.js"></script>
+</body>
+</html>
